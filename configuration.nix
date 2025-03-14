@@ -45,30 +45,42 @@
   };
 
   environment.systemPackages = with pkgs; [
+
+  #development
   gcc
   gnumake
-  wget
+  python3
+  lazygit
   git
   tmux
   neovim
-  nnn
-  neofetch
-  ghostty
+
+  #gui
   firefox
+  ghostty
+  gnome-tweaks
   protonup-qt
-  stow
-  btop
-  killall
+
+  #gaming
+  gamescope
+  mangohud
+
+  #dependencies
   wl-clipboard
   unzip
   alejandra
-  mangohud
+
+  #tui
+  wget
+  jq
+  nnn
+  neofetch
+  stow
+  btop
+  killall
   alsa-utils
   playerctl
   brightnessctl
-  jq
-  gnome-tweaks
-  gamescope
   ];
   
   fonts.packages = with pkgs; [
