@@ -23,6 +23,11 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
+  
+  fileSystems."/mnt/CorsairSSD" = {
+  device = "/dev/disk/by-uuid/627e5fe4-ce99-4e4f-a6a8-7cd25cd6195f";
+  fsType = "ext4";
+  };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/ab10f8ee-19e5-40e7-ac62-127beec78e37"; }

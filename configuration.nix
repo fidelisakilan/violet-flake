@@ -12,10 +12,21 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
+  hardware.graphics.enable = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
+  };
+  
   services.xserver.videoDrivers = ["nvidia"];
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = true;
   services.flatpak.enable = true;
   services.printing.enable = true;
   services.pulseaudio.enable = false;
@@ -34,16 +45,29 @@
       enable = true;
       settings.PasswordAuthentication = true;
   };
-  
-  hardware.graphics.enable = true;
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    open = true;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+  programs.zsh = {
+    enable = true;
+    interactiveShellInit = ''
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+    '';
+    autosuggestions.enable = true;
   };
+  programs.starship.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+  services.open-webui.enable = true;
+  services.tailscale.enable = true;
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [];
   environment.systemPackages = with pkgs; [
 
   #development
@@ -54,6 +78,10 @@
   git
   tmux
   neovim
+  alejandra
+  wl-clipboard
+  ripgrep
+
 
   #gui
   firefox
@@ -65,12 +93,8 @@
   gamescope
   mangohud
 
-  #dependencies
-  wl-clipboard
-  unzip
-  alejandra
-
   #tui
+  unzip
   wget
   jq
   nnn
@@ -96,22 +120,6 @@
     source-code-pro
   ];
   
-  programs.zsh = {
-    enable = true;
-    interactiveShellInit = ''
-      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-    '';
-    autosuggestions.enable = true;
-  };
-  programs.starship.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
-  };
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [];
   
   networking.hostName = "violet";
   networking.networkmanager.enable = true;
