@@ -22,11 +22,15 @@
   };
   
   services.xserver.videoDrivers = ["nvidia"];
-  # services.xserver.enable = true;
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.enable = true;
+
+  services.xserver.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+  programs.hyprland.enable = true;
+  
+  # services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+
   services.flatpak.enable = true;
   services.printing.enable = true;
   services.pulseaudio.enable = false;
@@ -68,6 +72,7 @@
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [];
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
 
   #development
@@ -81,11 +86,12 @@
   alejandra
   wl-clipboard
   ripgrep
+  kitty
+  ghostty
 
 
   #gui
   firefox
-  ghostty
   gnome-tweaks
   protonup-qt
 
@@ -103,8 +109,20 @@
   btop
   killall
   alsa-utils
-  playerctl
+
+
+  #hyprland
   brightnessctl
+  playerctl
+  waybar
+  hyprshot
+  hyprlock
+  hypridle
+  hyprpaper
+  hyprpolkitagent
+  hyprnotify
+  pavucontrol
+  rofi-wayland
   ];
   
   fonts.packages = with pkgs; [
